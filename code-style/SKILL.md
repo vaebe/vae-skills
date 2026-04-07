@@ -446,7 +446,30 @@ fetchGameOptions()
 </template>
 ```
 
-## 7. 反模式清单（禁止的写法）
+## 7. Props 定义与反模式
+
+### 7.1 不需要访问 props 时
+如果组件 script 逻辑中不需要访问 props，直接定义不赋值给变量即可：
+
+| 禁止 | 推荐 |
+| ----- | ----- |
+| `const props = defineProps<CompProps>()`（实际不使用 props） | `defineProps<CompProps>()`（不赋值给变量） |
+
+### 7.2 需要访问 props 时
+组件 script 逻辑中需要使用 props 属性时，**推荐直接解构**：
+
+```ts
+// 推荐 - 直接解构
+const { categoryIds = [], categories = [] } = defineProps<CompProps>()
+```
+
+如果只需要访问少数 props，也可以使用：
+```ts
+const props = defineProps<CompProps>()
+// 使用：props.categoryIds
+```
+
+### 7.3 反模式清单（禁止的写法）
 
 | 禁止 | 推荐 |
 | ----- | ----- |
@@ -454,7 +477,6 @@ fetchGameOptions()
 | JSDoc 多行注释 `/** */` | 行内单行注释 `//` |
 | `if (condition) statement` | `if (condition) { statement }` |
 | `modelValue` + `emit('update:modelValue')` | `defineModel()` |
-| `const props = defineProps()`（script 中无需访问 props 时） | 直接使用 `defineProps<{}>()`（不赋值给变量） |
 
 ## 8. 预交付检查清单
 
