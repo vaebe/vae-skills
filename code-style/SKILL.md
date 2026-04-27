@@ -258,23 +258,7 @@ if (!form.icon) {
 }
 ```
 
-### 3.2 条件判断中的常量
-
-**推荐** - 常量放在左边：
-
-```ts
-// 推荐
-if (200 === res.code) {
-  // ...
-}
-
-// 避免
-if (res.code === 200) {
-  // ...
-}
-```
-
-### 3.3 可选链和默认值
+### 3.2 可选链和默认值
 
 **推荐** - 使用简洁的写法：
 
@@ -283,7 +267,7 @@ const list = res.data?.list ?? []
 const total = res?.data?.total ?? 0
 ```
 
-### 3.4 解构赋值
+### 3.3 解构赋值
 
 **推荐** - 合理使用解构：
 
@@ -449,6 +433,7 @@ fetchGameOptions()
 ## 7. Props 定义与反模式
 
 ### 7.1 不需要访问 props 时
+
 如果组件 script 逻辑中不需要访问 props，直接定义不赋值给变量即可：
 
 | 禁止 | 推荐 |
@@ -456,6 +441,7 @@ fetchGameOptions()
 | `const props = defineProps<CompProps>()`（实际不使用 props） | `defineProps<CompProps>()`（不赋值给变量） |
 
 ### 7.2 需要访问 props 时
+
 组件 script 逻辑中需要使用 props 属性时，**推荐直接解构**：
 
 ```ts
@@ -464,6 +450,7 @@ const { categoryIds = [], categories = [] } = defineProps<CompProps>()
 ```
 
 如果只需要访问少数 props，也可以使用：
+
 ```ts
 const props = defineProps<CompProps>()
 // 使用：props.categoryIds
